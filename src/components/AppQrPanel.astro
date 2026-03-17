@@ -1,0 +1,54 @@
+---
+import type { AppPlatform } from "../data/site";
+
+interface Props {
+  platforms: AppPlatform[];
+  compact?: boolean;
+}
+
+const { platforms, compact = false } = Astro.props;
+---
+
+<div class:list={["grid gap-4", compact ? "lg:grid-cols-2" : "md:grid-cols-2"]}>
+  {
+    platforms.map((platform) => (
+      <article class="qr-card">
+        <div class="qr-card__header">
+          <span>{platform.name}</span>
+          <span class="rounded-full border-2 border-ink-strong bg-bg-soft px-2 py-1 text-[0.7rem]">
+            {platform.badge}
+          </span>
+        </div>
+        <div class:list={["grid gap-4", compact ? "p-3" : "p-5"]}>
+          <div class:list={["relative overflow-hidden rounded-[18px] border-2 border-dashed border-ink-strong bg-white", compact ? "p-2" : "p-3"]}>
+            <img
+              src={platform.qrSrc}
+              alt={platform.downloadLabel}
+              width={compact ? 112 : 176}
+              height={compact ? 112 : 176}
+              class:list={["mx-auto aspect-square opacity-25 grayscale", compact ? "w-24" : "w-36"]}
+              loading="lazy"
+            />
+            <div class="absolute inset-0 grid place-items-center">
+              <span class="rounded-full border-2 border-ink-strong bg-brand-primary px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-ink-strong">
+                敬请期待
+              </span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <p class="font-display text-base font-bold tracking-tight">{platform.name}</p>
+              <span class="rounded-full border border-ink-strong bg-bg-soft px-2 py-1 text-[0.68rem] text-ink-soft">
+                即将开放
+              </span>
+            </div>
+            <p class="text-sm leading-6 text-ink-soft">{platform.description}</p>
+            <p class="font-mono text-[0.76rem] uppercase tracking-[0.16em] text-ink-soft">
+              {platform.downloadLabel}
+            </p>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

@@ -1,0 +1,40 @@
+---
+import type { FaqItem } from "../data/site";
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="section-gap">
+  <div class="container-shell">
+    <div class="max-w-3xl">
+      <span class="section-kicker">FAQ</span>
+      <h2 class="mt-5 font-display text-[clamp(1.9rem,4vw,3rem)] leading-[0.98] font-bold tracking-[-0.04em] lg:whitespace-nowrap">
+        这些问题先说清楚
+      </h2>
+    </div>
+
+    <div class="mt-8 grid gap-4">
+      {
+        items.map((item) => (
+          <details class="paper-card overflow-hidden">
+            <summary class="cursor-pointer px-6 py-5">
+              <div class="flex items-center justify-between gap-4">
+                <p class="font-display text-[1.1rem] font-bold tracking-tight">{item.question}</p>
+                <span class="rounded-full border-2 border-ink-strong bg-bg-soft px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
+                  Open
+                </span>
+              </div>
+            </summary>
+            <div class="border-t-2 border-ink-strong px-6 py-5 text-base leading-7 text-ink-soft">
+              {item.answer}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

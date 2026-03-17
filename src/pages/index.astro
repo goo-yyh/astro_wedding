@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import HeroSection from "../components/HeroSection.astro";
+import ServiceCategoryGrid from "../components/ServiceCategoryGrid.astro";
+import LuckyDateCalendar from "../components/LuckyDateCalendar.astro";
+import DownloadSection from "../components/DownloadSection.astro";
+import FaqSection from "../components/FaqSection.astro";
+import Footer from "../components/Footer.astro";
+import {
+  appPlatforms,
+  contact,
+  faqItems,
+  navigation,
+  serviceCategories,
+  siteMeta,
+} from "../data/site";
+import { calendarData } from "../data/auspicious-dates";
+---
+
+<BaseLayout title={siteMeta.title} description={siteMeta.description}>
+  <div id="top">
+    <Header navigation={navigation} platforms={appPlatforms} />
+    <main>
+      <LuckyDateCalendar data={calendarData} />
+      <HeroSection
+        eyebrow={siteMeta.eyebrow}
+        title={siteMeta.heroTitle}
+      />
+      <ServiceCategoryGrid categories={serviceCategories} />
+      <DownloadSection platforms={appPlatforms} />
+      <FaqSection items={faqItems} />
+    </main>
+    <Footer
+      navigation={navigation}
+      contact={contact}
+      siteName={siteMeta.name}
+      blurb={siteMeta.footerBlurb}
+    />
+  </div>
+</BaseLayout>

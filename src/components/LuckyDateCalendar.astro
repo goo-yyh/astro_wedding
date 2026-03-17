@@ -1,0 +1,116 @@
+---
+import type { CalendarData } from "../data/auspicious-dates";
+
+interface Props {
+  data: CalendarData;
+}
+
+const { data } = Astro.props;
+const weekdayHeaders = ["日", "一", "二", "三", "四", "五", "六"];
+
+function formatToday() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+const today = formatToday();
+---
+
+<section id="calendar" class="section-gap pt-2 lg:pt-3">
+  <div class="container-shell">
+    <div>
+      <span class="section-kicker">Auspicious Calendar</span>
+      <h2 class="mt-5 max-w-[14ch] font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[0.98] font-bold tracking-[-0.04em] lg:max-w-none lg:whitespace-nowrap">
+        当月宜婚日期
+      </h2>
+      <p class="mt-4 max-w-3xl text-[1rem] leading-8 text-ink-soft lg:text-[1.05rem]">
+        通过构建阶段读取黄历信息，直接标出当前月份适合办婚礼的日期、周末和热门提醒。先看时间，再安排流程，决策顺序会更清晰。
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-3 text-sm">
+        <span class="rounded-full border-2 border-ink-strong bg-brand-primary/60 px-4 py-2 font-medium">
+          宜婚
+        </span>
+        <span class="rounded-full border-2 border-ink-strong bg-brand-accent/18 px-4 py-2 font-medium">
+          热门档期
+        </span>
+        <span class="rounded-full border-2 border-ink-strong bg-brand-secondary/22 px-4 py-2 font-medium">
+          节假日
+        </span>
+      </div>
+
+      <div class="mt-6">
+        {
+          data.months.map((month) => (
+            <article class="paper-card p-6 lg:p-8">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-[clamp(1.7rem,3vw,2.45rem)] font-bold tracking-tight lg:whitespace-nowrap">
+                    {month.label}
+                  </h3>
+                  <p class="mt-2 text-sm text-ink-soft">
+                    本月共 {month.auspiciousCount} 个宜婚日期
+                  </p>
+                </div>
+                <span class="rounded-full border-2 border-ink-strong bg-bg-soft px-4 py-2 font-mono text-[0.76rem] uppercase tracking-[0.16em]">
+                  {month.key}
+                </span>
+              </div>
+
+              <div class="mt-7 grid grid-cols-7 gap-3">
+                {
+                  weekdayHeaders.map((label) => (
+                    <div class="text-center font-mono text-[0.72rem] uppercase tracking-[0.16em] text-ink-soft">
+                      {label}
+                    </div>
+                  ))
+                }
+
+                {
+                  Array.from({ length: month.leadingOffset }).map(() => (
+                    <div class="min-h-[6.5rem] rounded-[18px] border-2 border-dashed border-ink-strong/15 bg-white/35"></div>
+                  ))
+                }
+
+                {
+                  month.days.map((day) => (
+                    <div
+                      class:list={[
+                        "calendar-day",
+                        day.isAuspicious && "is-auspicious",
+                        day.isPopular && "is-popular",
+                        day.isHoliday && "is-holiday",
+                        day.date === today && "is-today",
+                      ]}
+                    >
+                      <div class="flex items-start justify-between gap-2">
+                        <span class="font-display text-xl font-bold tracking-tight">{day.day}</span>
+                        <div class="flex items-center gap-1">
+                          {day.isPopular && (
+                            <span class="h-2.5 w-2.5 rounded-full border border-ink-strong bg-brand-accent"></span>
+                          )}
+                          {day.isAuspicious && (
+                            <span class="rounded-full border border-ink-strong bg-white px-1.5 py-0.5 font-mono text-[0.58rem] uppercase tracking-[0.12em]">
+                              宜
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <p class="mt-3 text-xs leading-5 text-ink-soft">{day.lunarLabel}</p>
+                      <p class="mt-2 text-[0.72rem] leading-5 text-ink-soft">
+                        {day.holiday ?? day.weekdayLabel}
+                      </p>
+                    </div>
+                  ))
+                }
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

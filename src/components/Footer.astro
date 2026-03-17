@@ -1,0 +1,69 @@
+---
+import type { NavItem } from "../data/site";
+
+interface ContactInfo {
+  email: string;
+  wechat: string;
+  location: string;
+}
+
+interface Props {
+  navigation: NavItem[];
+  contact: ContactInfo;
+  siteName: string;
+  blurb: string;
+}
+
+const { navigation, contact, siteName, blurb } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="border-t-2 border-ink-strong bg-ink-strong py-12 text-bg-soft">
+  <div class="container-shell grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.76fr)]">
+    <div>
+      <p class="font-mono text-[0.78rem] uppercase tracking-[0.18em] text-brand-primary">
+        {siteName}
+      </p>
+      <h2 class="mt-4 font-display text-[clamp(1.8rem,3.6vw,2.8rem)] leading-[0.98] font-bold tracking-[-0.04em] lg:whitespace-nowrap">
+        {blurb}
+      </h2>
+    </div>
+
+    <div class="grid gap-6 rounded-[28px] border-2 border-white/18 bg-white/6 p-6 backdrop-blur-sm">
+      <div class="grid gap-3">
+        <p class="font-mono text-[0.78rem] uppercase tracking-[0.18em] text-brand-secondary">
+          Contact
+        </p>
+        <a class="text-lg text-white hover:text-brand-primary" href={`mailto:${contact.email}`}>
+          {contact.email}
+        </a>
+      </div>
+
+      {
+        navigation.length > 0 && (
+          <div class="grid gap-3 border-t border-white/18 pt-5">
+            <p class="font-mono text-[0.78rem] uppercase tracking-[0.18em] text-brand-secondary">
+              Sitemap
+            </p>
+            <div class="flex flex-wrap gap-3">
+              {
+                navigation.map((item) => (
+                  <a
+                    href={item.href}
+                    class="rounded-full border border-white/24 px-3 py-2 text-sm text-white/72 transition hover:border-brand-primary hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        )
+      }
+
+      <p class="border-t border-white/18 pt-5 text-sm text-white/58">
+        © {year} {siteName}.
+      </p>
+    </div>
+  </div>
+</footer>

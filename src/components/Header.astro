@@ -1,0 +1,75 @@
+---
+import type { AppPlatform, NavItem } from "../data/site";
+import AppQrPanel from "./AppQrPanel.astro";
+
+interface Props {
+  navigation: NavItem[];
+  platforms: AppPlatform[];
+}
+
+const { navigation, platforms } = Astro.props;
+const hasNav = navigation.length > 0;
+---
+
+<header class="sticky top-0 z-50 border-b-2 border-transparent bg-bg-page/80 backdrop-blur-md">
+  <div class="container-shell py-3">
+    <div class="flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5">
+        <span class="grid h-10 w-10 place-items-center rounded-[14px] border-2 border-ink-strong bg-brand-primary font-display text-lg font-bold shadow-[4px_4px_0_0_#383838]">
+          婚
+        </span>
+        <span class="space-y-1">
+          <span class="block font-display text-lg font-bold tracking-tight">婚礼救星</span>
+          <span class="block font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-soft">
+            Wedding Ops
+          </span>
+        </span>
+      </a>
+
+      {
+        hasNav && (
+          <nav class="hidden items-center gap-6 lg:flex">
+            {
+              navigation.map((item) => (
+                <a
+                  href={item.href}
+                  class="border-b-2 border-transparent pb-1 text-sm font-medium text-ink-strong transition hover:border-brand-accent hover:text-ink-strong"
+                >
+                  {item.label}
+                </a>
+              ))
+            }
+          </nav>
+        )
+      }
+
+      <div class="group relative hidden lg:block">
+        <a
+          href="#download"
+          class="inline-flex items-center gap-2 rounded-full border-2 border-ink-strong bg-bg-soft px-4 py-2.5 font-mono text-[0.74rem] uppercase tracking-[0.16em] text-ink-strong shadow-[4px_4px_0_0_rgba(56,56,56,0.16)] transition hover:-translate-x-0.5 hover:-translate-y-0.5"
+        >
+          下载 App
+          <span aria-hidden="true">+</span>
+        </a>
+        <div class="pointer-events-none absolute right-0 top-[calc(100%+0.9rem)] w-[24rem] translate-y-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+          <div class="mb-2 text-right font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-soft">
+            App 敬请期待
+          </div>
+          <AppQrPanel platforms={platforms} compact />
+        </div>
+      </div>
+
+      <details class="relative lg:hidden">
+        <summary class="btn-secondary cursor-pointer px-4 py-2 text-sm">下载 App</summary>
+        <div class="paper-card absolute right-0 top-[calc(100%+1rem)] w-[min(24rem,calc(100vw-2rem))] p-5">
+          <div class="space-y-4">
+            <p class="font-mono text-[0.72rem] uppercase tracking-[0.16em] text-ink-soft">
+              App 敬请期待
+            </p>
+            <AppQrPanel platforms={platforms} />
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,49 @@
+---
+import type { AppPlatform } from "../data/site";
+import AppQrPanel from "./AppQrPanel.astro";
+
+interface Props {
+  platforms: AppPlatform[];
+}
+
+const { platforms } = Astro.props;
+---
+
+<section id="download" class="section-gap">
+  <div class="container-shell">
+    <div class="paper-card overflow-hidden lg:grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+      <div class="border-b-2 border-ink-strong bg-brand-primary/28 p-7 lg:border-b-0 lg:border-r-2 lg:p-10">
+        <span class="section-kicker">App Download</span>
+        <h2 class="mt-5 max-w-[14ch] font-display text-[clamp(1.95rem,4vw,3rem)] leading-[0.98] font-bold tracking-[-0.04em] lg:max-w-none lg:whitespace-nowrap">
+          备婚安排装进手机
+        </h2>
+        <p class="mt-4 max-w-xl text-[1rem] leading-8 text-ink-soft lg:text-[1.05rem]">
+          在 App 里继续查看备婚分类、宜婚日期和流程提醒。桌面端负责说明价值，手机端承接持续浏览。
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-ink-strong bg-bg-soft px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-soft">
+          App 敬请期待
+        </div>
+
+        <div class="mt-8 grid gap-4">
+          <article class="mini-card bg-bg-soft p-4">
+            <p class="font-display text-[1.1rem] font-bold tracking-tight">双平台入口先预告</p>
+            <p class="mt-2 text-sm leading-6 text-ink-soft">
+              桌面端 hover 即可看到二维码，移动端则通过菜单入口继续下载。
+            </p>
+          </article>
+          <article class="mini-card bg-bg-soft p-4">
+            <p class="font-display text-[1.1rem] font-bold tracking-tight">后续可自然承接移动端</p>
+            <p class="mt-2 text-sm leading-6 text-ink-soft">
+              用手机继续看日期和备婚信息，比长截图或临时表格更直接。
+            </p>
+          </article>
+        </div>
+      </div>
+
+      <div class="p-7 lg:p-10">
+        <AppQrPanel platforms={platforms} />
+      </div>
+    </div>
+  </div>
+</section>

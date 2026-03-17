@@ -1,0 +1,36 @@
+---
+import type { ValueProp } from "../data/site";
+
+interface Props {
+  values: ValueProp[];
+}
+
+const { values } = Astro.props;
+---
+
+<section class="section-gap pt-0">
+  <div class="container-shell">
+    <div class="max-w-3xl">
+      <span class="section-kicker">Why This Layout</span>
+      <h2 class="mt-5 font-display text-[clamp(1.9rem,4vw,3rem)] leading-[0.98] font-bold tracking-[-0.04em] lg:whitespace-nowrap">
+        首页先解决顺序，再解决信息量
+      </h2>
+    </div>
+
+    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+      {
+        values.map((item, index) => (
+          <article class:list={["paper-card p-6 lg:p-7", index === 1 ? "bg-brand-primary/18" : ""]}>
+            <p class="font-mono text-[0.78rem] uppercase tracking-[0.18em] text-ink-soft">
+              {item.index}
+            </p>
+            <h3 class="mt-4 font-display text-[1.5rem] font-bold leading-tight tracking-[-0.03em]">
+              {item.title}
+            </h3>
+            <p class="mt-4 text-base leading-7 text-ink-soft">{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

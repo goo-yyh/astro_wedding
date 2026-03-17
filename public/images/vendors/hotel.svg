@@ -1,0 +1,15 @@
+<svg width="640" height="480" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" rx="32" fill="#E4E2FF"/>
+  <rect x="28" y="28" width="584" height="424" rx="28" stroke="#383838" stroke-width="8"/>
+  <rect x="110" y="104" width="178" height="258" rx="12" fill="#383838"/>
+  <rect x="198" y="246" width="42" height="116" fill="#FFFDF9"/>
+  <rect x="344" y="76" width="180" height="286" rx="12" fill="#6FC2FF" stroke="#383838" stroke-width="8"/>
+  <rect x="382" y="114" width="36" height="36" fill="#FFFDF9"/>
+  <rect x="450" y="114" width="36" height="36" fill="#FFFDF9"/>
+  <rect x="382" y="182" width="36" height="36" fill="#FFFDF9"/>
+  <rect x="450" y="182" width="36" height="36" fill="#FFFDF9"/>
+  <rect x="382" y="250" width="36" height="36" fill="#FFFDF9"/>
+  <rect x="450" y="250" width="36" height="36" fill="#FFFDF9"/>
+  <path d="M84 392H558" stroke="#383838" stroke-width="8" stroke-linecap="round"/>
+  <text x="84" y="430" fill="#383838" font-family="Space Grotesk, sans-serif" font-size="40" font-weight="700">HOTEL</text>
+</svg>

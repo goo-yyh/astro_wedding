@@ -1,0 +1,61 @@
+---
+import type { ServiceCategory } from "../data/site";
+
+interface Props {
+  categories: ServiceCategory[];
+}
+
+const { categories } = Astro.props;
+
+const iconPaths: Record<ServiceCategory["icon"], string> = {
+  host: "M12 4.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7Zm-6 14.25a6 6 0 0 1 12 0V20H6v-1.25Zm9.5-2.5a4.4 4.4 0 0 1 2.87-1.04A3.63 3.63 0 0 1 22 18.75V20h-3.5v-1.25c0-.9-.37-1.72-1-2.5Z",
+  decor: "M4 18.5 9.5 13l3.25 3.25L18 11l2 2-7.25 7.25L9.5 17 6 20.5 4 18.5Zm2-11.75h5v2H6v-2Zm8-2.75h4v2h-4V4Zm1 6h5v2h-5v-2Z",
+  hotel: "M4 19.5V8.75h4.25v-4h7.5v6H20v8.75h-2.5v-2.5H6.5v2.5H4Zm4.25-10.75h1.5v1.5h-1.5v-1.5Zm4 0h1.5v1.5h-1.5v-1.5Zm4.25 4h1.5v1.5h-1.5v-1.5ZM8.25 12.75h1.5v1.5h-1.5v-1.5Zm4 0h1.5v1.5h-1.5v-1.5Z",
+  dress: "M12 4c1.1 0 2 .9 2 2 0 .64-.3 1.2-.77 1.57l1.27 4.18 3 7.75H6.5l3-7.75 1.27-4.18A1.98 1.98 0 0 1 10 6c0-1.1.9-2 2-2Zm0 6.25-1.82 6h3.64l-1.82-6Z",
+  makeup: "M6 6h12v3H6V6Zm1.5 5h9v8.5h-9V11Zm2.25 2v4h4.5v-4h-4.5ZM4 20h16v2H4v-2Z",
+  photo: "M6 8.5h3L10.5 6h3L15 8.5h3A2 2 0 0 1 20 10.5v7A2 2 0 0 1 18 19.5H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Zm6 2.5a4 4 0 1 0 0 8a4 4 0 0 0 0-8Zm0 2a2 2 0 1 1 0 4a2 2 0 0 1 0-4Z",
+};
+
+const accentClasses = [
+  "bg-brand-primary/40",
+  "bg-brand-secondary/30",
+  "bg-brand-accent/24",
+  "bg-brand-warm/55",
+  "bg-brand-red/26",
+  "bg-brand-primary/30",
+];
+---
+
+<section id="services" class="section-gap">
+  <div class="container-shell">
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        categories.map((category, index) => (
+          <article class="paper-card group overflow-hidden transition duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5">
+            <div class:list={["flex items-center justify-between border-b-2 border-ink-strong px-5 py-4", accentClasses[index % accentClasses.length]]}>
+              <span class="font-mono text-[0.76rem] uppercase tracking-[0.18em] text-ink-soft">
+                {category.countLabel}
+              </span>
+              <svg
+                viewBox="0 0 24 24"
+                class="h-7 w-7 shrink-0 fill-ink-strong transition-transform duration-200 group-hover:scale-110"
+                aria-hidden="true"
+              >
+                <path d={iconPaths[category.icon]} />
+              </svg>
+            </div>
+            <div class="space-y-4 p-5">
+              <h3 class="font-display text-[1.45rem] font-bold tracking-tight">{category.title}</h3>
+              <p class="text-base leading-7 text-ink-soft">{category.description}</p>
+              <a href={category.href} class="inline-flex items-center gap-2 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-ink-strong">
+                去 App 里继续看
+                <span aria-hidden="true">/</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
