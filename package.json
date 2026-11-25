@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/node": "^10.1.4",
     "@astrojs/preact": "^5.1.5",
+    "@astrojs/vercel": "^10.0.8",
     "astro": "^6.4.8",
     "lunar-typescript": "^1.8.6",
     "preact": "^10.29.8"

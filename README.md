@@ -21,6 +21,12 @@ npm run build
 npm start
 ```
 
-生产构建使用 Astro Node standalone 适配器。由 Node 服务同时提供页面和同源的 `/api/analysis`，可通过 HOST、PORT 配置监听地址与端口。运行环境需能访问 DeepSeek API。
+本地构建使用 Astro Node standalone 适配器。Node 服务同时提供页面和同源的 `/api/analysis`，可通过 HOST、PORT 配置监听地址与端口。
+
+Vercel 项目 `astro_wedding` 从 `main` 部署到 [正式网站](https://www.weddingsavior.com)。使用 Astro 框架预设和 Node.js 24.x，构建时由 `VERCEL=1` 启用 Vercel 适配器。AI 接口从 Production 环境读取敏感变量 `deepseek_key`。更新变量后需重新部署，再运行以下命令验证线上备注解析、评分和首选日期。
+
+```sh
+WEDDING_TEST_URL=https://www.weddingsavior.com node --experimental-strip-types scripts/verify-deepseek.mjs
+```
 
 产品口径见 [婚期计算网站设计方案](specs/婚期计算网站设计方案.md)。页面「规则说明」列出本版采用的生肖换年、闰月与行嫁月份口径。
