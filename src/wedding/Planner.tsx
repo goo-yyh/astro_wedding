@@ -1,3 +1,4 @@
+import { servicePages } from "./service";
 import { useState, useEffect } from "preact/hooks";
 import { Solar } from "lunar-typescript";
 import {
@@ -453,6 +454,11 @@ export default function Planner({ now }: { now: string }) {
       <footer class="wrap">
         <span>婚期计算</span>
         <span>结果按所选民俗规则与家庭安排生成，供商定婚期参考。</span>
+        <nav class="service-links" aria-label="服务信息">
+          {Object.entries(servicePages).map(([path, label]) => (
+            <a href={`/${path}`} key={path}>{label}</a>
+          ))}
+        </nav>
       </footer>
     </>
   );

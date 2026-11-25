@@ -1,0 +1,69 @@
+---
+import { servicePages, supportEmail } from "../wedding/service";
+import "../styles/wedding.css";
+
+export function getStaticPaths() {
+  return Object.keys(servicePages).map((service) => ({ params: { service } }));
+}
+
+const service = Astro.params.service as keyof typeof servicePages;
+const title = servicePages[service];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title} · Wedding Savior 婚期计算</title>
+  </head>
+  <body>
+    <main class="document">
+      <a href="/">返回婚期计算</a>
+      <h1>{title}</h1>
+      {service === "pricing" && <>
+        <h2>单次婚期测算 · 拟定价格 ¥5.10 人民币</h2>
+        <p>一次测算将一组新人的生日、候选日期和所选规则整理为一份网页结果。结果列出各日期的评分、首选婚期、逐项依据及缺少的资料。没有日期满足全部必须条件时，结果会列出冲突或待核对项。</p>
+        <p>可选的传统规则包括生肖避冲、行嫁月及黄历宜忌，也可按婚礼星期和家庭档期筛选。AI 可协助整理备注和解读两个日期的差异。</p>
+        <h2>收费状态</h2>
+        <p>目前免费试用。计划上线后按次购买，每笔订单只收取一次费用，不自动续费。正式开放购买时，结账页会在付款前列明交易总额和适用税费。</p>
+      </>}
+      {service === "terms" && <>
+        <h2>服务提供者与交付</h2>
+        <p>Wedding Savior（婚期计算）由个人开发者运营。网站根据用户选择的传统历法规则、家庭资料和档期计算候选日期，结果直接显示在浏览器中。服务范围、计划售价及当前收费状态见<a href="/pricing">价格与服务</a>。</p>
+        <h2>如何使用结果</h2>
+        <p>评分表示日期与所选规则的匹配程度。民俗规则和 AI 解读供筹备婚礼时参考。请核对生日历法、酒店档期和家人安排后自行决定日期。建议确认 AI 从备注中提取的条件，再将其应用到测算。</p>
+        <h2>家庭资料和售后</h2>
+        <p>请在取得家人同意后填写他们的生日和安排。资料用途见<a href="/privacy">隐私政策</a>。若付款或交付遇到问题，可按照<a href="/refunds">退款政策</a>联系处理。</p>
+      </>}
+      {service === "privacy" && <>
+        <h2>日期测算</h2>
+        <p>新人生日、家人生日、档期和规则默认在当前浏览器页面中计算。网站没有为测算表单建立个人档案。请只填写完成本次测算所需的资料。</p>
+        <h2>可选的 AI 分析</h2>
+        <p>点击整理备注时，网站会把备注和搜索日期范围经服务端发送给 DeepSeek。点击两日 AI 分析时，会发送两个候选日期、评分、状态和相关规则依据，其中可能包含你填写的家庭安排。你也可以手动设置条件。请避免在备注里写入姓名、联系方式、证件号或健康资料。</p>
+        <h2>运行与联系记录</h2>
+        <p>Vercel 为网站提供托管，访问服务时会处理网络请求所需的技术信息，例如 IP 地址。AI 接口会短暂使用 IP 统计请求频率。客服邮件用于答复问题和处理相关请求。你可以通过下方邮箱联系经营者，查询、更正或申请删除我们持有的相关资料。</p>
+        <p>如未来通过 Paddle 付款，Paddle 将根据其<a href="https://www.paddle.com/legal/privacy">隐私政策</a>处理结账和订单信息。</p>
+      </>}
+      {service === "refunds" && <>
+        <h2>免费试用期间</h2>
+        <p>目前网站尚未开放付费结账。若发现疑似本站扣款，请先核对商户名称及订单收据，再联系下方客服。</p>
+        <h2>付费上线后的申请方式</h2>
+        <p>如发生重复扣款、付款成功但未收到测算结果，或实际交付与购买说明不符，请将订单号、购买日期和问题描述发送至下方邮箱。请勿发送完整银行卡号、验证码或证件照片。</p>
+        <p>对于通过 Paddle 完成的订单，也可以使用收据中的支持链接或前往<a href="https://paddle.net/">Paddle 买家支持</a>申请退款。退款将依据<a href="https://www.paddle.com/legal/refund-policy">Paddle 退款政策</a>及适用的消费者保护规定处理。消费者依法享有的退款或撤回权利不受影响。</p>
+      </>}
+      <p>经营者联系邮箱 <a href={`mailto:${supportEmail}`}>{supportEmail}</a></p>
+      <nav aria-label="服务信息">
+        {Object.entries(servicePages).map(([path, label]) => <a href={`/${path}`} aria-current={service === path ? "page" : undefined}>{label}</a>)}
+      </nav>
+    </main>
+  </body>
+</html>
+<style>
+  .document { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem; line-height: 1.8; }
+  .document h1 { margin: 1rem 0; }
+  .document h2 { margin: 1.6rem 0 .4rem; font-size: 1.15rem; }
+  .document p { margin: .6rem 0; }
+  .document a { color: var(--red); }
+  .document nav { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+</style>

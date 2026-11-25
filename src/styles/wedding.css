@@ -1010,3 +1010,6 @@ summary {
   min-width: 25px;
   accent-color: var(--green);
 }
+
+footer.wrap { flex-wrap: wrap; }
+.service-links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
