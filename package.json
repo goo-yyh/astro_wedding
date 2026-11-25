@@ -4,17 +4,23 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "node --env-file-if-exists=.env dist/server/entry.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
-    "astro": "^6.0.5",
-    "lunar-typescript": "^1.8.6"
+    "@astrojs/node": "^10.1.4",
+    "@astrojs/preact": "^5.1.5",
+    "astro": "^6.4.8",
+    "lunar-typescript": "^1.8.6",
+    "preact": "^10.29.8"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@tailwindcss/vite": "^4.2.1",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.1",
+    "typescript": "~5.9.0"
   }
 }

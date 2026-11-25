@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/": {
+      "targetKind": "new-target",
+      "projectId": "7826d0ce-88ed-4268-9043-7564654b2f17",
+      "activeDraftId": "dad48d61-d17c-4ce0-a9f1-c5247c72bfd7",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md:1:2",
+        ".superdesign/init/routes.md",
+        ".superdesign/init/layouts.md:1:35"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "6346bb67dc880fca6888b586dd722847785469fec778b6f4e1ae75030d2aa16a",
+        ".superdesign/init/theme.md": "1201aef6a778937016d91261b8ea1894f46b8d58665a404430cd8f101d0d1e52",
+        ".superdesign/init/routes.md": "b34cbdf3a0098fd79ae3b51004ad1c2c71c97a7d5fc28018bc7b8ce7f73009bf",
+        ".superdesign/init/layouts.md": "06b250fadd701f24bbbb9de79760db04a70877d149da504cc1d6b55c0917f4c5"
+      },
+      "components": [],
+      "drafts": {
+        "dad48d61-d17c-4ce0-a9f1-c5247c72bfd7": {
+          "title": "婚期计算表单",
+          "visualDirection": "正式简洁的中文纸本表单，暖白底与暗朱红操作",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-11-24T07:24:27.923378+00:00"
+    }
+  }
+}

@@ -1,41 +1,7 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import HeroSection from "../components/HeroSection.astro";
-import ServiceCategoryGrid from "../components/ServiceCategoryGrid.astro";
-import LuckyDateCalendar from "../components/LuckyDateCalendar.astro";
-import DownloadSection from "../components/DownloadSection.astro";
-import FaqSection from "../components/FaqSection.astro";
-import Footer from "../components/Footer.astro";
-import {
-  appPlatforms,
-  contact,
-  faqItems,
-  navigation,
-  serviceCategories,
-  siteMeta,
-} from "../data/site";
-import { calendarData } from "../data/auspicious-dates";
+import Planner from "../wedding/Planner";
+import { today } from "../wedding/calendar";
+import "../styles/wedding.css";
+export const prerender=false;
 ---
-
-<BaseLayout title={siteMeta.title} description={siteMeta.description}>
-  <div id="top">
-    <Header navigation={navigation} platforms={appPlatforms} />
-    <main>
-      <LuckyDateCalendar data={calendarData} />
-      <HeroSection
-        eyebrow={siteMeta.eyebrow}
-        title={siteMeta.heroTitle}
-      />
-      <ServiceCategoryGrid categories={serviceCategories} />
-      <DownloadSection platforms={appPlatforms} />
-      <FaqSection items={faqItems} />
-    </main>
-    <Footer
-      navigation={navigation}
-      contact={contact}
-      siteName={siteMeta.name}
-      blurb={siteMeta.footerBlurb}
-    />
-  </div>
-</BaseLayout>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#f9f7f2"/><meta name="description" content="根据新人生日、传统择日规则和家庭安排，筛选婚礼日期并比较依据。"/><title>婚期计算 · 婚礼择日</title></head><body><Planner now={today()} client:load/><noscript>请启用 JavaScript 以计算和比较候选婚期。</noscript></body></html>

@@ -1,102 +1,26 @@
-# 婚礼救星
+# 婚期计算
 
-基于 `Astro + Tailwind CSS` 的静态主站项目，用于展示婚礼备婚信息、当月宜婚日期和 App 下载预告。
-
-## 技术栈
-
-- `Astro 6`
-- `Tailwind CSS 4`
-- `@tailwindcss/vite`
-- `lunar-typescript`
-
-## 当前实现
-
-- 单页主站首页
-- 当月宜婚日期日历
-- 备婚服务分类展示
-- App 下载预告态二维码
-- FAQ 与联系方式
-- 适合部署到 `Vercel`
-
-说明：
-
-- 日历数据在构建阶段通过 `lunar-typescript` 生成
-- App 二维码当前是占位和预告态，页面文案显示为“敬请期待”
-- 首页已按轻量化方向持续收敛，减少了说明性冗余区块
+根据新人生日、所选民俗规则和家庭档期筛选婚期。浏览器负责公农历换算、规则核对、分类和排序。DeepSeek 可将用户备注整理成待确认的条件，并在两日对照中选出值得关注的差异。
 
 ## 本地运行
 
-要求：
+使用 Node.js 22.12 或更高版本。在项目根目录执行：
 
-- Node.js `22+`
-- npm `11+`
-
-安装依赖：
-
-```bash
-npm install
-```
-
-启动开发环境：
-
-```bash
+```sh
+npm ci
 npm run dev
 ```
 
-构建产物：
+AI 服务端读取环境变量 `deepseek_key`，本地可放在项目根目录的 `.env`。未配置时仍可使用日期计算和对照表。不要将密钥放入浏览器环境变量。
 
-```bash
+## 构建与启动
+
+```sh
+npm run check
 npm run build
+npm start
 ```
 
-本地预览构建结果：
+生产构建使用 Astro Node standalone 适配器。由 Node 服务同时提供页面和同源的 `/api/analysis`，可通过 HOST、PORT 配置监听地址与端口。运行环境需能访问 DeepSeek API。
 
-```bash
-npm run preview
-```
-
-## 目录结构
-
-```text
-.
-├─ public/
-│  ├─ images/
-│  └─ qr/
-├─ specs/
-│  └─ design.md
-├─ src/
-│  ├─ components/
-│  ├─ data/
-│  ├─ layouts/
-│  ├─ pages/
-│  └─ styles/
-├─ astro.config.mjs
-├─ package.json
-└─ tsconfig.json
-```
-
-## 关键文件
-
-- `src/pages/index.astro`: 首页装配
-- `src/components/LuckyDateCalendar.astro`: 日历模块
-- `src/data/auspicious-dates.ts`: 宜婚日期数据生成
-- `src/data/site.ts`: 站点文案与基础数据
-- `src/styles/global.css`: 全局样式与设计 token
-- `specs/design.md`: 设计方案文档
-
-## 部署
-
-该项目当前是纯静态站，直接部署到 Vercel 即可。
-
-推荐配置：
-
-- Install Command: `npm install`
-- Build Command: `npm run build`
-- Output Directory: `dist`
-
-## 后续可扩展方向
-
-- 首页日历切换月份
-- 替换真实二维码与联系信息
-- 接入真实的备婚内容数据
-- 增加城市页或服务详情页
+产品口径见 [婚期计算网站设计方案](specs/婚期计算网站设计方案.md)。页面「规则说明」列出本版采用的生肖换年、闰月与行嫁月份口径。
